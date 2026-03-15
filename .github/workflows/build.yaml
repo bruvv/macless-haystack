@@ -172,7 +172,9 @@ jobs:
           python-version: '3.14'
           cache: 'pip'
       - name: Install PlatformIO Core
-        run: pip install --upgrade platformio
+        run: | 
+          pip install --upgrade platformio
+          pip install idf-component-manager
       - name: Build ESP32 firmware
         run: |
           pio pkg list --project-dir firmware/ESP32/
