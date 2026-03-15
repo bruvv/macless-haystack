@@ -20,12 +20,11 @@ jobs:
         run: echo "VERSION=$(cat version)" >> $GITHUB_ENV
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.14'
+          python-version: '3.12'
           cache: 'pip'
       - name: Install PlatformIO Core
         run: |
           pip install --upgrade platformio
-          pip install idf-component-manager
       - name: Build ESP32 firmware
         run: |
           pio pkg list --project-dir firmware/ESP32/
