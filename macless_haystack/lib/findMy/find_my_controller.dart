@@ -65,10 +65,7 @@ class FindMyController {
     List jsonResults = await ReportsFetcher.fetchLocationReports(
         hashedKeyKeyPairsMap.keys, daysToFetch, url, map['user'], map['pass']);
     FindMyLocationReport? latest;
-    DateTime latestDate = DateTime.fromMicrosecondsSinceEpoch(0);
     for (var result in jsonResults) {
-      DateTime currentDate =
-          DateTime.fromMillisecondsSinceEpoch(result['datePublished']);
       FindMyKeyPair keyPair =
           hashedKeyKeyPairsMap[result['id']] as FindMyKeyPair;
       var currentReport = FindMyLocationReport.decrypted(
@@ -76,10 +73,7 @@ class FindMyController {
         keyPair.getBase64PrivateKey(),
         keyPair.getHashedAdvertisementKey(),
       );
-      if (currentDate.isAfter(latestDate)) {
-        latest = currentReport;
-        latestDate = currentDate;
-      }
+      latest ??= currentReport;
       results.add(currentReport);
     }
     if (latest != null) {

@@ -105,7 +105,6 @@ class DecryptReports {
         latitudeDec,
         longitudeDec,
         accuracy,
-        report.datePublished,
         report.timestamp,
         report.confidence,
         batteryStatus);

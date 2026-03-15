@@ -119,8 +119,7 @@ class AccessoryRegistry extends ChangeNotifier {
       if (reports.where((element) => !element.isEncrypted()).isNotEmpty) {
         var lastReport =
             reports.where((element) => !element.isEncrypted()).first;
-        var reportDate = (lastReport.timestamp ?? lastReport.published) ??
-            DateTime.fromMicrosecondsSinceEpoch(0);
+        var reportDate = lastReport.timestamp ?? DateTime.fromMicrosecondsSinceEpoch(0);
         if (accessory.datePublished != null &&
             reportDate.isAfter(accessory.datePublished!)) {
           accessory.datePublished = reportDate;
@@ -246,7 +245,7 @@ class AccessoryRegistry extends ChangeNotifier {
       var lastReport = decryptedReports[decryptedReports.length - 1];
       var oldTs = accessory.datePublished;
       var latestReportTS =
-          lastReport.timestamp ?? lastReport.published ?? DateTime(1971);
+          lastReport.timestamp ??  DateTime(1971);
 
       if (oldTs == null || oldTs.isBefore(latestReportTS)) {
         //only an actualization if oldTS is not set or is older than the latest of the new ones

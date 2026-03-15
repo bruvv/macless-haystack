@@ -264,7 +264,7 @@ class Accessory {
   }
 
   void addLocationHistoryEntry(FindMyLocationReport report) {
-    var reportDate = report.timestamp ?? report.published!;
+    var reportDate = report.timestamp!;
     logger.d(
         'Adding report with timestamp $reportDate and ${report.longitude} - ${report.latitude}');
 

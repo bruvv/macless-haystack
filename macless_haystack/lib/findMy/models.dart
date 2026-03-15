@@ -22,7 +22,6 @@ class FindMyLocationReport {
   double? latitude;
   double? longitude;
   int? accuracy;
-  DateTime? published;
   DateTime? timestamp;
   int? confidence;
   AccessoryBatteryStatus? batteryStatus;
@@ -34,7 +33,7 @@ class FindMyLocationReport {
   String? hash;
 
   FindMyLocationReport(this.latitude, this.longitude, this.accuracy,
-      this.published, this.timestamp, this.confidence, this.batteryStatus);
+       this.timestamp, this.confidence, this.batteryStatus);
 
   FindMyLocationReport.withHash(
       this.latitude, this.longitude, this.timestamp, this.hash) {
@@ -60,11 +59,7 @@ class FindMyLocationReport {
       await Future.delayed(const Duration(
           milliseconds: 1)); //Is needed otherwise is executed synchron
       if (isEncrypted()) {
-        final unixTimestampInMillis = result["datePublished"];
-        final datePublished =
-            DateTime.fromMillisecondsSinceEpoch(unixTimestampInMillis);
-        FindMyReport report = FindMyReport(datePublished,
-            base64Decode(result["payload"]), id!, result["statusCode"]);
+        FindMyReport report = FindMyReport(base64Decode(result["payload"]), id!, result["statusCode"]);
 
         FindMyLocationReport decryptedReport =
             await DecryptReports.decryptReport(
@@ -102,7 +97,6 @@ class Location {
 
 /// FindMy report returned by the FindMy Network
 class FindMyReport {
-  DateTime datePublished;
   Uint8List payload;
   String id;
   int statusCode;
@@ -110,9 +104,9 @@ class FindMyReport {
   int? confidence;
   DateTime? timestamp;
 
-  FindMyReport(this.datePublished, this.payload, this.id, this.statusCode);
+  FindMyReport(this.payload, this.id, this.statusCode);
 
-  FindMyReport.completeInit(this.datePublished, this.payload, this.id,
+  FindMyReport.completeInit( this.payload, this.id,
       this.statusCode, this.confidence, this.timestamp);
 }
 
